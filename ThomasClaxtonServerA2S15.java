@@ -56,7 +56,7 @@ import java.util.Date;
  * 
  * @author Adam Buckley
  */
-public class NtpMessage
+public class ThomasClaxtonServerA2S15
 {
     /**
      * This is a two-bit code warning of an impending leap second to be
@@ -223,7 +223,7 @@ public class NtpMessage
     /**
      * Constructs a new NtpMessage from an array of bytes.
      */
-    public NtpMessage(byte[] array)
+    public ThomasClaxtonServerA2S15(byte[] array)
     {
 	// See the packet format diagram in RFC 2030 for details 
 	leapIndicator = (byte) ((array[0] >> 6) & 0x3);
@@ -260,7 +260,7 @@ public class NtpMessage
      * Constructs a new NtpMessage in client -> server mode, and sets the
      * transmit timestamp to the current time.
      */
-    public NtpMessage()
+    public ThomasClaxtonServerA2S15()
     {
 	// Note that all the other member variables are already set with
 	// appropriate default values.

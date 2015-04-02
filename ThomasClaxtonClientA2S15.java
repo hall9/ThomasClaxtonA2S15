@@ -31,33 +31,24 @@ import java.text.DecimalFormat;
  *  
  * @author Adam Buckley
  */
-public class SntpClient
+public class ThomasClaxtonClientA2S15
 {
     public static void main(String[] args) throws IOException
     {
-	String serverName;
-	
-	// Process command-line args
-	if(args.length==1)
-	    {
-		serverName = args[0];
-	    }
-	else
-	    {
-		printUsage();
-		return;
-	    }
+
+    //TODO: Change this to the NTP SERVER NAME!!	
+	String serverName = "towson.edu";
 	
 	// Send request
 	DatagramSocket socket = new DatagramSocket();
 	InetAddress address = InetAddress.getByName(serverName);
-	byte[] buf = new NtpMessage().toByteArray();
+	byte[] buf = new ThomasClaxtonServerA2S15().toByteArray();
 	DatagramPacket packet =
 	    new DatagramPacket(buf, buf.length, address, 123);
 	
 	// Set the transmit timestamp *just* before sending the packet
 	// ToDo: Does this actually improve performance or not?
-	NtpMessage.encodeTimestamp(packet.getData(), 40,
+	ThomasClaxtonServerA2S15.encodeTimestamp(packet.getData(), 40,
 				   (System.currentTimeMillis()/1000.0) + 2208988800.0);
 	
 	socket.send(packet);
@@ -74,7 +65,7 @@ public class SntpClient
 	
 	
 	// Process response
-	NtpMessage msg = new NtpMessage(packet.getData());
+	ThomasClaxtonServerA2S15 msg = new ThomasClaxtonServerA2S15(packet.getData());
 	
 	// Corrected, according to RFC2030 errata
 	double roundTripDelay = (destinationTimestamp-msg.originateTimestamp) -
@@ -90,7 +81,7 @@ public class SntpClient
 	System.out.println(msg.toString());
 	
 	System.out.println("Dest. timestamp:     " +
-			   NtpMessage.timestampToString(destinationTimestamp));
+			   ThomasClaxtonServerA2S15.timestampToString(destinationTimestamp));
 	
 	System.out.println("Round-trip delay: " +
 			   new DecimalFormat("0.00").format(roundTripDelay*1000) + " ms");
