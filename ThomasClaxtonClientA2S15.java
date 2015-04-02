@@ -83,7 +83,7 @@ public class ThomasClaxtonClientA2S15
 	System.out.println("Dest. timestamp:     " +
 			   ThomasClaxtonServerA2S15.timestampToString(destinationTimestamp));
 	
-	System.out.println("Round-trip delay: " +
+	System.out.println("T3-T1: Round-trip delay: " +
 			   new DecimalFormat("0.00").format(roundTripDelay*1000) + " ms");
 	
 	System.out.println("Local clock offset: " +

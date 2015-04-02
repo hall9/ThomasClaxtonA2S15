@@ -330,10 +330,10 @@ public class ThomasClaxtonServerA2S15
 	    "Root delay: " + new DecimalFormat("0.00").format(rootDelay*1000) + " ms\n" +
 	    "Root dispersion: " + new DecimalFormat("0.00").format(rootDispersion*1000) + " ms\n" + 
 	    "Reference identifier: " + referenceIdentifierToString(referenceIdentifier, stratum, version) + "\n" +
-	    "Reference timestamp: " + timestampToString(referenceTimestamp) + "\n" +
+	    "T1: Reference timestamp: " + timestampToString(referenceTimestamp) + "\n" +
 	    "Originate timestamp: " + timestampToString(originateTimestamp) + "\n" +
-	    "Receive timestamp:   " + timestampToString(receiveTimestamp) + "\n" +
-	    "Transmit timestamp:  " + timestampToString(transmitTimestamp);
+	    "T2: Receive timestamp:   " + timestampToString(receiveTimestamp) + "\n" +
+	    "T3: Transmit timestamp:  " + timestampToString(transmitTimestamp);
     }
     
     
