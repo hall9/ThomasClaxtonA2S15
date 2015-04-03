@@ -3,7 +3,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.text.DecimalFormat;
-
+import java.util.*;
 
 /**
  * NtpClient - an NTP client for Java.  This program connects to an NTP server
@@ -35,7 +35,8 @@ public class ThomasClaxtonClientA2S15
 {
     public static void main(String[] args) throws IOException
     {
-
+	
+	//Start Part A
     //TODO: Change this to the NTP SERVER NAME!!	
 	String serverName = "towson.edu";
 	
@@ -88,8 +89,27 @@ public class ThomasClaxtonClientA2S15
 	
 	System.out.println("Local clock offset: " +
 			   new DecimalFormat("0.00").format(localClockOffset*1000) + " ms");
-	
+			   
 	socket.close();
+	
+	//Start part B
+	Scanner console = new Scanner(System.in);
+	System.out.println("Enter filename in the form: c:\path\filename.mp3");
+	//Collects file to send 
+	String fileName = console.nextLine();
+	
+	// Send request
+	DatagramSocket socket = new DatagramSocket();
+	InetAddress address = InetAddress.getByName(fileName);
+	byte[] buf = new ThomasClaxtonServerA2S15().toByteArray();
+	DatagramPacket packet =
+	    new DatagramPacket(buf, buf.length, address, 33312);
+	
+	// Set the transmit timestamp *just* before sending the packet
+	// ToDo: Does this actually improve performance or not?
+	ThomasClaxtonServerA2S15.encodeTimestamp(packet.getData(), 40,
+				   (System.currentTimeMillis()/1000.0) + 2208988800.0);
+	
     }
     
     
