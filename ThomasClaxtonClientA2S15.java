@@ -97,16 +97,16 @@ public class ThomasClaxtonClientA2S15
 	System.out.println("PART B");
 	Scanner console = new Scanner(System.in);
 	System.out.println("Enter filename in the form: c:\\path\\filename.mp3");
-	Collects file to send 
+	//Collects file to send 
 	String fileName = console.nextLine();
 	
 	// Send request
-	DatagramSocket socket = new DatagramSocket();
-	InetAddress address = InetAddress.getByName(fileName);
-	byte[] buf = new ThomasClaxtonServerA2S15().toByteArray();
+	 socket = new DatagramSocket();
+	 address = InetAddress.getByName(fileName);
+	 buf = new ThomasClaxtonServerA2S15().toByteArray();
 	
 	//Sends to 33312
-	DatagramPacket packet = new DatagramPacket(buf, buf.length, address, 33312);
+	 packet = new DatagramPacket(buf, buf.length, address, 33312);
 	ThomasClaxtonServerA2S15.encodeTimestamp(packet.getData(), 40,
 				   (System.currentTimeMillis()/1000.0) + 2208988800.0);
 	
@@ -117,23 +117,28 @@ public class ThomasClaxtonClientA2S15
 	socket.receive(packet);
 	
 	// Immediately record the incoming timestamp
-	double destinationTimestamp =
+	destinationTimestamp =
 	    (System.currentTimeMillis()/1000.0) + 2208988800.0;
 	
 	// Process response
-	ThomasClaxtonServerA2S15 msg = new ThomasClaxtonServerA2S15(packet.getData());
+	 msg = new ThomasClaxtonServerA2S15(packet.getData());
 	
 	// Corrected, according to RFC2030 errata
-	double roundTripDelay = (destinationTimestamp-msg.originateTimestamp) -
+	roundTripDelay = (destinationTimestamp-msg.originateTimestamp) -
 	    (msg.transmitTimestamp-msg.receiveTimestamp);
 	
-	double localClockOffset =
+	 localClockOffset =
 	    ((msg.receiveTimestamp - msg.originateTimestamp) +
 	     (msg.transmitTimestamp - destinationTimestamp)) / 2;
 	
 	// Display response
 	System.out.println("NTP server: " + fileName);
 	System.out.println(msg.toString());
+	
+	System.out.println("Dest. timestamp:     " +
+			   ThomasClaxtonServerA2S15.timestampToString(destinationTimestamp));
+			   
+	socket.send(packet);
 	
 	
 	
